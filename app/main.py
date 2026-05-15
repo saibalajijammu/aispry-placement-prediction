@@ -3,13 +3,13 @@ from fastapi import FastAPI
 
 from app.schema import StudentData
 from app.utils import predict_placement
-
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(
     title="AI Placement Prediction API",
     description="Predict student placement status",
     version="1.0"
 )
-from fastapi.middleware.cors import CORSMiddleware
+
 
 app.add_middleware(
     CORSMiddleware,
