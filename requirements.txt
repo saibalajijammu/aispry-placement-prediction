@@ -1,0 +1,10 @@
+pandas
+numpy
+matplotlib
+scikit-learn
+xgboost
+joblib
+statsmodels
+mlflow
+fastapi
+uvicorn
