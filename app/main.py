@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-
+from prometheus_fastapi_instrumentator import Instrumentator
 from app.schema import StudentData
 from app.utils import predict_placement
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,7 +9,7 @@ app = FastAPI(
     description="Predict student placement status",
     version="1.0"
 )
-
+Instrumentator().instrument(app).expose(app)
 
 app.add_middleware(
     CORSMiddleware,
