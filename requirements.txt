@@ -1,68 +1,46 @@
 fastapi==0.116.1
 uvicorn==0.35.0
-pandas==2.2.2
+
+pandas==2.1.4
 numpy==1.26.4
 scikit-learn==1.5.1
 xgboost==2.1.1
 joblib==1.4.2
 
-# AI
 google-generativeai==0.8.5
 python-dotenv==1.0.1
 
-# Monitoring
 prometheus-fastapi-instrumentator==7.1.0
 prometheus-client==0.21.0
 grafana-api==1.0.3
 
-# Feast
 feast==0.46.0
 pyarrow==17.0.0
 dill==0.3.8
 protobuf==5.29.3
 grpcio==1.66.1
 
-# MLflow
 mlflow==2.16.2
 
-# DVC
 dvc==3.59.1
 dvc-s3==3.2.0
 
-# Great Expectations
 great-expectations==1.2.3
 
-# Evidently AI
 evidently==0.4.38
 
-# OpenLineage + Marquez
 openlineage-python==1.27.0
 
-# Kubernetes + Docker
 kubernetes==31.0.0
 docker==7.1.0
 
-# GitHub Actions / API
 PyGithub==2.4.0
 
-# Requests
 requests==2.32.3
-
-# Database / Utilities
 sqlalchemy==2.0.35
 psycopg2-binary==2.9.9
-
-# Serialization / Validation
 pydantic==2.9.2
-
-# Async Support
 anyio==4.6.2.post1
-
-# Optional Logging
 loguru==0.7.2
-
-# Promptfoo support
 pyyaml==6.0.2
-
-# ASGI
 starlette==0.46.2
