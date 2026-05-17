@@ -195,17 +195,17 @@ function App() {
           gap: "10px"
         }}>
 
-          <input type="number" name="Age" placeholder="Age" onChange={handleChange} />
+          <input type="number" name="Age" placeholder="Age" value={form.Age} onChange={handleChange} />
 
-          <input type="number" step="0.1" name="CGPA" placeholder="CGPA" onChange={handleChange} />
+          <input type="number" step="0.1" name="CGPA" placeholder="CGPA" value={form.CGPA} onChange={handleChange} />
 
-          <input type="number" name="Internships" placeholder="Internships" onChange={handleChange} />
+          <input type="number" name="Internships" placeholder="Internships" value={form.Internships} onChange={handleChange} />
 
-          <input type="number" name="Coding_Skills" placeholder="Coding Skills" onChange={handleChange} />
+          <input type="number" name="Coding_Skills" placeholder="Coding Skills" value={form.Coding_Skills} onChange={handleChange} />
 
-          <input type="number" name="Communication_Skills" placeholder="Communication Skills" onChange={handleChange} />
+          <input type="number" name="Communication_Skills" placeholder="Communication Skills" value={form.Communication_Skills} onChange={handleChange} />
 
-          <input type="number" name="Backlogs" placeholder="Backlogs" onChange={handleChange} />
+          <input type="number" name="Backlogs" placeholder="Backlogs" value={form.Backlogs} onChange={handleChange} />
 
           {/* Gender */}
 
