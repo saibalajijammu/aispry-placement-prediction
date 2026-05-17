@@ -9,6 +9,7 @@ Communication Skills: {communication}
 Backlogs: {backlogs}
 
 Prediction: {prediction}
+Probability: {probability}
 
 Explain:
 1. Why this prediction happened
