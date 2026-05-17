@@ -77,8 +77,9 @@ def predict(data: StudentData):
 )
 
     explanation = generate_explanation(
-    features,
-    prediction_value
+    prediction=result["prediction"],
+    probability=result["probability"],
+    student_data=df.iloc[0].to_dict()
 )
 
     return {
