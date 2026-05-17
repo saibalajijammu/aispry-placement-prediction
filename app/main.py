@@ -76,10 +76,10 @@ def predict(data: StudentData):
     else "Not Placed"
 )
 
-    #explanation = generate_explanation(
-    #features,
-    #prediction_value
-#)
+    explanation = generate_explanation(
+    features,
+    prediction_value
+)
 
     return {
     "prediction": prediction_value,
