@@ -2,8 +2,8 @@ import joblib
 import pandas as pd
 
 
-model = joblib.load("models/best_model.pkl") 
-scaler = joblib.load("models/scaler.pkl") 
+model = joblib.load("../models/best_model.pkl") 
+scaler = joblib.load("../models/scaler.pkl") 
 
 # =========================
 # Feature Columns
