@@ -5,7 +5,7 @@ from feast.infra.offline_stores.file_source import FileSource
 from student_entity import student
 
 student_source = FileSource(
-    path="../../data/processed/feast_training_dataset.parquet",
+    path="data/processed/feast_training_dataset.parquet",
     timestamp_field="event_timestamp",
 )
 

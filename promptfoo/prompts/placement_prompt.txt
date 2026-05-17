@@ -1,0 +1,11 @@
+You are an AI placement assistant.
+
+Student Details:
+CGPA: {{cgpa}}
+Internships: {{internships}}
+Coding Skills: {{coding}}
+Communication Skills: {{communication}}
+
+Prediction: {{prediction}}
+
+Explain the prediction and suggest improvements.

@@ -1,6 +1,3 @@
-from schema import StudentData
-
-print(StudentData.model_json_schema())
 
 
 import pandas as pd
@@ -9,10 +6,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from prometheus_fastapi_instrumentator import Instrumentator
 
-from schema import StudentData
-from utils import predict_placement
-from feast_utils import get_student_features
-from fastapi.openapi.utils import get_openapi
+from app.schema import StudentData
+from app.utils import predict_placement
+from app.feast_utils import get_student_features
+from dotenv import load_dotenv
+#from app.llm.explain import generate_explanation
+
+load_dotenv()   
 
 
 app = FastAPI(
@@ -39,7 +39,7 @@ def home():
     }
 
 
-@app.post("/predict")
+@app.post("/predict2")
 def predict(data: StudentData):
 
     features = get_student_features(
@@ -70,7 +70,22 @@ def predict(data: StudentData):
 
     result = predict_placement(df)
 
-    return result
+    prediction_value = (
+    "Placed"
+    if result["prediction"] == 1
+    else "Not Placed"
+)
+
+    #explanation = generate_explanation(
+    #features,
+    #prediction_value
+#)
+
+    return {
+    "prediction": prediction_value,
+    "probability": result.get("probability"),
+    "explanation": explanation
+}
 
 
 @app.get("/student/{student_id}")
@@ -80,18 +95,3 @@ def fetch_student(student_id: int):
 
     return features
 
-def custom_openapi():
-    if app.openapi_schema:
-        return app.openapi_schema
-
-    openapi_schema = get_openapi(
-        title=app.title,
-        version=app.version,
-        description=app.description,
-        routes=app.routes,
-    )
-
-    app.openapi_schema = openapi_schema
-    return app.openapi_schema
-
-app.openapi = custom_openapi

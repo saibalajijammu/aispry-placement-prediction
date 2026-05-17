@@ -1,7 +1,7 @@
 from feast import FeatureStore
 
 store = FeatureStore(
-    repo_path="../placement_feature_store/feature_repo"
+    repo_path="placement_feature_store/feature_repo"
 )
 
 def get_student_features(student_id):

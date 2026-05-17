@@ -2,8 +2,13 @@ import joblib
 import pandas as pd
 
 
-model = joblib.load("../models/best_model.pkl") 
-scaler = joblib.load("../models/scaler.pkl") 
+# =========================
+# Load Model + Scaler
+# =========================
+
+model = joblib.load("models/best_model.pkl")
+scaler = joblib.load("models/scaler.pkl")
+
 
 # =========================
 # Feature Columns
@@ -27,37 +32,27 @@ FEATURE_COLUMNS = [
     "Branch_ME"
 ]
 
+
 # =========================
 # Prediction Function
 # =========================
 
 def predict_placement(data):
 
-    # -------------------------
-    # One-hot encoding manually
-    # -------------------------
+    # Ensure exact column order
+    features_df = data[FEATURE_COLUMNS]
 
-    input_data = {
-        "Age": data.Age,
-        "CGPA": data.CGPA,
-        "Internships": data.Internships,
-        "Coding_Skills": data.Coding_Skills,
-        "Communication_Skills": data.Communication_Skills,
-        "Backlogs": data.Backlogs,
+    # Scale features
+    scaled_features = scaler.transform(features_df)
 
-        # Gender
-        "Gender": 1 if data.Gender.lower() == "male" else 0,
+    # Prediction
+    prediction = model.predict(scaled_features)[0]
 
-        # Degree
-        "Degree_B.Tech": 1 if data.Degree == "B.Tech" else 0,
-        "Degree_BCA": 1 if data.Degree == "BCA" else 0,
-        "Degree_MCA": 1 if data.Degree == "MCA" else 0,
+    probability = model.predict_proba(scaled_features)[0][1]
 
-        # Branch
-        "Branch_Civil": 1 if data.Branch == "Civil" else 0,
-        "Branch_ECE": 1 if data.Branch == "ECE" else 0,
-        "Branch_IT": 1 if data.Branch == "IT" else 0,
-        "Branch_ME": 1 if data.Branch == "ME" else 0
+    return {
+        "prediction": "Placed" if prediction == 1 else "Not Placed",
+        "probability": round(float(probability), 4)
     }
 
     # -------------------------
@@ -66,7 +61,7 @@ def predict_placement(data):
 
     features_df = pd.DataFrame([input_data])
 
-    # Ensure exact column order
+    # Exact column order
     features_df = features_df[FEATURE_COLUMNS]
 
     # -------------------------
@@ -81,10 +76,13 @@ def predict_placement(data):
 
     prediction = model.predict(scaled_features)[0]
 
-    
+    probability = model.predict_proba(scaled_features)[0][1]
 
     # -------------------------
     # Return Result
     # -------------------------
 
-    return "Placed" if prediction == 1 else "Not Placed"
+    return {
+        "prediction": "Placed" if prediction == 1 else "Not Placed",
+        "probability": round(float(probability), 4)
+    }

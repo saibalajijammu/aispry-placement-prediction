@@ -1,0 +1,26 @@
+prompts:
+  - prompts/placement_prompt.txt
+
+providers:
+  - google:gemini-2.5-flash
+
+tests:
+  - vars:
+      cgpa: "8.9"
+      internships: "2"
+      coding: "9"
+      communication: "8"
+      prediction: "Placed"
+    assert:
+      - type: contains
+        value: "strong"
+
+  - vars:
+      cgpa: "5.2"
+      internships: "0"
+      coding: "4"
+      communication: "5"
+      prediction: "Not Placed"
+    assert:
+      - type: contains
+        value: "improve"
