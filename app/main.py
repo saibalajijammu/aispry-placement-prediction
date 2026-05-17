@@ -10,7 +10,7 @@ from app.schema import StudentData
 from app.utils import predict_placement
 from app.feast_utils import get_student_features
 from dotenv import load_dotenv
-#from app.llm.explain import generate_explanation
+from app.llm.explain import generate_explanation
 
 load_dotenv()   
 
