@@ -9,7 +9,7 @@ spec:
 
   source:
     repoURL: https://github.com/saibalajijammu/aispry-placement-prediction
-    targetRevision: HEAD
+    targetRevision: main
     path: k8s
 
   destination:
