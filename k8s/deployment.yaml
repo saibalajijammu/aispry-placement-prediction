@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aispry-backend
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: aispry-backend
+
+  template:
+    metadata:
+      labels:
+        app: aispry-backend
+
+    spec:
+      containers:
+      - name: aispry-backend
+        image: saibalajijammu/aispry-backend:latest
+
+        ports:
+        - containerPort: 8000

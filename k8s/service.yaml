@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: aispry-service
+
+spec:
+  selector:
+    app: aispry-backend
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+
+  type: LoadBalancer
