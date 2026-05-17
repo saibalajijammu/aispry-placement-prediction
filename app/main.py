@@ -88,6 +88,24 @@ def predict(data: StudentData):
     "explanation": explanation
 }
 
+@app.post("/predict")
+def predict_manual(data: dict):
+
+    df = pd.DataFrame([data])
+
+    result = predict_placement(df)
+
+    explanation = generate_explanation(
+        prediction=result["prediction"],
+        probability=result["probability"],
+        student_data=df.iloc[0].to_dict()
+    )
+
+    return {
+        "prediction": result["prediction"],
+        "probability": result["probability"],
+        "explanation": explanation
+    }
 
 @app.get("/student/{student_id}")
 def fetch_student(student_id: int):
