@@ -40,7 +40,7 @@ def home():
 
 
 @app.post("/predict2")
-def predict(data: StudentData):
+def predict(data: StudentIDRequest):
 
     features = get_student_features(
         data.student_id
@@ -89,9 +89,9 @@ def predict(data: StudentData):
 }
 
 @app.post("/predict")
-def predict_manual(data: dict):
+def predict_manual(data: ManualPredictionRequest):
 
-    df = pd.DataFrame([data])
+    df = pd.DataFrame([data.dict()])
 
     result = predict_placement(df)
 
