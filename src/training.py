@@ -28,6 +28,7 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
+mlflow.set_tracking_uri("sqlite:///mlflow.db") 
 mlflow.set_experiment("Placement_Prediction")
 
 with mlflow.start_run(run_name="Logistic_Regression"):
