@@ -93,21 +93,58 @@ def predict(data: StudentIDRequest):
 @app.post("/predict")
 def predict_manual(data: ManualPredictionRequest):
 
-    df = pd.DataFrame([data.dict()])
+    raw_df = pd.DataFrame([data.dict()])
+
+    df = pd.get_dummies(raw_df)
+
+    expected_cols = [
+        'Age',
+        'CGPA',
+        'Internships',
+        'Coding_Skills',
+        'Communication_Skills',
+        'Backlogs',
+        'Gender_Male',
+        'Degree_B.Tech',
+        'Degree_BCA',
+        'Degree_MCA',
+        'Branch_Civil',
+        'Branch_ECE',
+        'Branch_IT',
+        'Branch_ME'
+    ]
+
+    for col in expected_cols:
+        if col not in df.columns:
+            df[col] = 0
+
+    df = df[expected_cols]
 
     result = predict_placement(df)
 
+    prediction_value = (
+        "Placed"
+        if result["prediction"] == 1
+        else "Not Placed"
+    )
+
     explanation = generate_explanation(
-        prediction=result["prediction"],
-        probability=result["probability"],
-        student_data=df.iloc[0].to_dict()
+        features={
+            "CGPA": [data.CGPA],
+            "Internships": [data.Internships],
+            "Coding_Skills": [data.Coding_Skills],
+            "Communication_Skills": [data.Communication_Skills],
+            "Backlogs": [data.Backlogs]
+        },
+        prediction=prediction_value
     )
 
     return {
-        "prediction": result["prediction"],
+        "prediction": prediction_value,
         "probability": result["probability"],
         "explanation": explanation
     }
+
 
 @app.get("/student/{student_id}")
 def fetch_student(student_id: int):
