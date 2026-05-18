@@ -96,7 +96,7 @@ function App() {
       // =========================
 
       const res = await axios.post(
-  "https://aispry-placement-prediction.onrender.com/predict2",
+  "https://aispry-placement-prediction.onrender.com/predict",
   payload,
   {
     timeout: 120000
