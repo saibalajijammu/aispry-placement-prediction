@@ -93,50 +93,42 @@ def predict(data: StudentIDRequest):
 @app.post("/predict")
 def predict_manual(data: ManualPredictionRequest):
 
-    raw_df = pd.DataFrame([data.dict()])
+    input_data = {
+        "Age": data.Age,
+        "CGPA": data.CGPA,
+        "Internships": data.Internships,
+        "Coding_Skills": data.Coding_Skills,
+        "Communication_Skills": data.Communication_Skills,
+        "Backlogs": data.Backlogs,
 
-    df = pd.get_dummies(raw_df)
+        "Gender": data.Gender,
 
-    expected_cols = [
-        'Age',
-        'CGPA',
-        'Internships',
-        'Coding_Skills',
-        'Communication_Skills',
-        'Backlogs',
-        'Gender_Male',
-        'Degree_B.Tech',
-        'Degree_BCA',
-        'Degree_MCA',
-        'Branch_Civil',
-        'Branch_ECE',
-        'Branch_IT',
-        'Branch_ME'
-    ]
+        # Degree Encoding
+        "Degree_B.Tech": 1 if data.Degree == "B.Tech" else 0,
+        "Degree_BCA": 1 if data.Degree == "BCA" else 0,
+        "Degree_MCA": 1 if data.Degree == "MCA" else 0,
 
-    for col in expected_cols:
-        if col not in df.columns:
-            df[col] = 0
+        # Branch Encoding
+        "Branch_Civil": 1 if data.Branch == "Civil" else 0,
+        "Branch_ECE": 1 if data.Branch == "ECE" else 0,
+        "Branch_IT": 1 if data.Branch == "IT" else 0,
+        "Branch_ME": 1 if data.Branch == "ME" else 0,
+    }
 
-    df = df[expected_cols]
+    df = pd.DataFrame([input_data])
 
     result = predict_placement(df)
+
+    explanation = generate_explanation(
+        prediction=result["prediction"],
+        probability=result["probability"],
+        student_data=df.iloc[0].to_dict()
+    )
 
     prediction_value = (
         "Placed"
         if result["prediction"] == 1
         else "Not Placed"
-    )
-
-    explanation = generate_explanation(
-        features={
-            "CGPA": [data.CGPA],
-            "Internships": [data.Internships],
-            "Coding_Skills": [data.Coding_Skills],
-            "Communication_Skills": [data.Communication_Skills],
-            "Backlogs": [data.Backlogs]
-        },
-        prediction=prediction_value
     )
 
     return {
