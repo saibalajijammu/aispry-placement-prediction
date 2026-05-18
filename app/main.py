@@ -101,7 +101,7 @@ def predict_manual(data: ManualPredictionRequest):
         "Communication_Skills": data.Communication_Skills,
         "Backlogs": data.Backlogs,
 
-        "Gender": data.Gender,
+        "Gender": 1 if data.Gender == "Male" else 0,
 
         # Degree Encoding
         "Degree_B.Tech": 1 if data.Degree == "B.Tech" else 0,
