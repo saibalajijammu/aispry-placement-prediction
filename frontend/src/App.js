@@ -95,8 +95,12 @@ function App() {
       // API CALL
       // =========================
 
+      const endpoint = useStudentId
+  ? "https://aispry-placement-prediction.onrender.com/predict2"
+  : "https://aispry-placement-prediction.onrender.com/predict";
+
       const res = await axios.post(
-  "https://aispry-placement-prediction.onrender.com/predict",
+  endpoint,
   payload,
   {
     timeout: 120000
